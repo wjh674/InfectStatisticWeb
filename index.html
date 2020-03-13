@@ -16,6 +16,7 @@
         <br/>
         <h1>全国疫情信息</h1>
         <br/>
+        <p id="time">数据更新时间：</p>
         <br/>
         <table>
             <tr>
@@ -44,69 +45,116 @@
         </div>
     </div>
 
-
     <script>
     var myChart = echarts.init(document.getElementById('myEcharts'));
     option = {
     title: {
         text: '',
         left: 'center'
-      },
-      tooltip: {
+    },
+    tooltip: {
         trigger: 'item'
-      },
-      legend: {
+    },
+    legend: {
         orient: 'vertical',
         left: 'left',
         data: ['中国疫情图']
-      },
-      visualMap: {
+    },
+    visualMap: {
         type: 'piecewise',
         pieces: [
-          { min: 1000, max: 1000000, label: '大于等于1000人', color: '#372a28' },
-          { min: 500, max: 999, label: '确诊500-999人', color: '#4e160f' },
-          { min: 100, max: 499, label: '确诊100-499人', color: '#974236' },
-          { min: 10, max: 99, label: '确诊10-99人', color: '#ee7263' },
-          { min: 1, max: 9, label: '确诊1-9人', color: '#f5bba7' },
+        { min: 1000, max: 1000000, label: '>=1000人', color: '#372a28' },
+        { min: 500, max: 999, label: '500-999人', color: '#4e160f' },
+        { min: 100, max: 499, label: '100-499人', color: '#974236' },
+        { min: 10, max: 99, label: '10-99人', color: '#ee7263' },
+        { min: 1, max: 9, label: '1-9人', color: '#f5bba7' },
+        { min: 0, max: 0, label: '0人', color: '#ffffff' },
         ],
         color: ['#E0022B', '#E09107', '#A3E00B']
-      },
-      toolbox: {
+    },
+    toolbox: {
         show: true,
         orient: 'vertical',
         left: 'right',
         top: 'center',
         feature: {
-          mark: { show: true },
-          dataView: { show: true, readOnly: false },
-          restore: { show: true },
-          saveAsImage: { show: true }
+        mark: { show: true },
+        dataView: { show: true, readOnly: false },
+        restore: { show: true },
+        saveAsImage: { show: true }
         }
-      },
-      roamController: {
+    },
+    roamController: {
         show: true,
         left: 'right',
         mapTypeControl: {
-          'china': true
+        'china': true
         }
-      },
-      series: [
+    },
+    series: [
         {
-          name: '确诊数',
-          type: 'map',
-          mapType: 'china',
-          roam: false,
-          label: {
+        name: '确诊数',
+        type: 'map',
+        mapType: 'china',
+        roam: false,
+        label: {
             show: true,
             color: 'rgb(249, 249, 249)'
-          },
-          data: []
+        },
+        data: []
         }
-      ]
+    ]
     };
 
     myChart.setOption(option);
 
-  </script>
-</body>
+    function getData() {
+    $.ajax({
+        url: "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5",
+        async : true,
+        dataType: "jsonp",
+        success: function (data) {
+        var res = data.data || "";
+        res = JSON.parse(res);
+        document.getElementById("nowConfirm").innerHTML=res.chinaTotal.nowConfirm;
+        document.getElementById("suspect").innerHTML=res.chinaTotal.suspect;
+        document.getElementById("severe").innerHTML=res.chinaTotal.nowSevere;
+        document.getElementById("totalConfirm").innerHTML=res.chinaTotal.confirm;
+        document.getElementById("dead").innerHTML=res.chinaTotal.dead;
+        document.getElementById("cure").innerHTML=res.chinaTotal.heal;
+        document.getElementById("time").innerHTML="数据更新时间："+res.lastUpdateTime;
+        var newArr = [];
+        if (res) {
+            var province = res.areaTree[0].children;
+            for (var i = 0; i < province.length; i++) {
+            var json = {
+                name: province[i].name,
+                value: province[i].total.confirm
+            }
+            newArr.push(json)
+            }
+            console.log(newArr)
+            console.log(JSON.stringify(newArr))
+            myChart.setOption({
+            series: [
+                {
+                name: '确诊数',
+                type: 'map',
+                mapType: 'china',
+                roam: false,
+                label: {
+                    show: true,
+                    color: 'rgb(249, 249, 249)'
+                },
+                data: newArr
+                }
+            ]
+            });
+        }
+        }
+    })
+    }
+    getData();
+        </script>
+    </body>
 </html>
