@@ -1,12 +1,10 @@
 .container 
 {
-    width: 1200px;
     margin: 0 auto;
 }
 
 #myEcharts 
 {
-    width: 800px;
     height: 500px;
     margin: 0 auto;
 }
@@ -15,6 +13,7 @@
 body
 {
     text-align: center;
+    background-color:rgb(118,238,198);
 }
 
 table 
@@ -67,4 +66,11 @@ td
 #cure
 {
     color:rgb(50,205,50);
+}
+
+#main
+{
+    background-color:rgba(255,255,240,0.5);
+    width:750px;
+    margin:0 auto;
 }
