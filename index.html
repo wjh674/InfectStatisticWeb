@@ -154,6 +154,12 @@
         }
     })
     }
+    myChart.on('click',function(params)
+    {
+    console.log(params);
+    var name=params.name;
+    window.location.href="chart.html?name="+params.name;
+    });
     getData();
         </script>
     </body>
