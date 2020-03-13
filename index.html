@@ -1,36 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="index_style.css">
-  <title>疫情地图展示</title>
-  <style>
-    .container {
-      width: 1200px;
-      margin: 0 auto;
-    }
-
-    #myEcharts {
-      width: 800px;
-      height: 500px;
-      margin: 0 auto;
-    }
-  </style>
-  <script src="https://www.echartsjs.com/examples/vendors/jquery/jquery.js"></script>
-  <script src="https://www.echartsjs.com/examples/vendors/echarts/echarts.min.js?_v_=1578305236132"></script>
-  <script src="https://www.echartsjs.com/examples/vendors/echarts/map/js/china.js?_v_=1578305236132"></script>
-
-</head>
-
-<body>
-  <div class="container">
-    <h3>累计确诊人数如下：</h3>
-    <!--为echarts准备一个dom容器-->
-    <div id="myEcharts"></div>
-  </div>
-=======
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="index_style.css">
@@ -70,7 +40,6 @@
     <div class="container">
     <div id="myEcharts"></div>
     </div>
->>>>>>> 221701228
 
 
   <script>
@@ -109,7 +78,6 @@
           dataView: { show: true, readOnly: false },
           restore: { show: true },
           saveAsImage: { show: true }
-<<<<<<< HEAD
         }
       },
       roamController: {
@@ -131,29 +99,6 @@
           },
           data: []
         }
-=======
-        }
-      },
-      roamController: {
-        show: true,
-        left: 'right',
-        mapTypeControl: {
-          'china': true
-        }
-      },
-      series: [
-        {
-          name: '确诊数',
-          type: 'map',
-          mapType: 'china',
-          roam: false,
-          label: {
-            show: true,
-            color: 'rgb(249, 249, 249)'
-          },
-          data: []
-        }
->>>>>>> 221701228
       ]
     };
 
