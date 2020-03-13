@@ -1,0 +1,70 @@
+.container 
+{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+#myEcharts 
+{
+    width: 800px;
+    height: 500px;
+    margin: 0 auto;
+}
+
+
+body
+{
+    text-align: center;
+}
+
+table 
+{
+    margin: auto;
+}
+
+.table_title
+{
+    font-size: 20px;
+    font-family: 黑体;
+}
+
+.table_data
+{
+    font-family: 黑体;
+}
+
+td
+{
+    text-align:"center";
+    padding:8px;
+}
+
+#nowConfirm
+{
+    color:rgb(255,0,0);
+}
+
+#suspect
+{
+    color:rgb(255,140,0);
+}
+
+#severe
+{
+    color:rgb(70,130,180);
+}
+
+#totalConfirm
+{
+    color:rgb(178,34,34);
+}
+
+#dead
+{
+    color:rgb(128,128,128);
+}
+
+#cure
+{
+    color:rgb(50,205,50);
+}

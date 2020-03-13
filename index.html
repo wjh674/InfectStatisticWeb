@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="index_style.css">
@@ -29,6 +30,47 @@
     <!--为echarts准备一个dom容器-->
     <div id="myEcharts"></div>
   </div>
+=======
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index_style.css">
+    <title>疫情地图展示</title>
+    <script src="https://www.echartsjs.com/examples/vendors/jquery/jquery.js"></script>
+    <script src="https://www.echartsjs.com/examples/vendors/echarts/echarts.min.js?_v_=1578305236132"></script>
+    <script src="https://www.echartsjs.com/examples/vendors/echarts/map/js/china.js?_v_=1578305236132"></script>
+</head>
+
+<body>
+
+    <h1>全国疫情信息</h1>
+    <br/>
+    <br/>
+    <table>
+        <tr>
+            <td><p class="table_title">现存确诊</p></td>
+            <td><p class="table_title">现存疑似</p></td>
+            <td><p class="table_title">现存重症</p></td>
+        </tr>
+        <tr>
+            <td><p class="table_data" id="nowConfirm">000</p></td>
+            <td><p class="table_data" id="suspect">000</p></td>
+            <td><p class="table_data" id="severe">000</p></td>
+        </tr>
+        <tr>
+            <td><p class="table_title">累计确诊</p></td>
+            <td><p class="table_title">累计死亡</p></td>
+            <td><p class="table_title">累计治愈</p></td>
+        </tr>
+        <tr>
+            <td><p class="table_data" id="totalConfirm">000</p ></td>
+            <td><p class="table_data" id="dead">000</p></td>
+            <td><p class="table_data" id="cure">000</p></td>
+        </tr>
+    </table>
+    <div class="container">
+    <div id="myEcharts"></div>
+    </div>
+>>>>>>> 221701228
 
 
   <script>
@@ -67,6 +109,7 @@
           dataView: { show: true, readOnly: false },
           restore: { show: true },
           saveAsImage: { show: true }
+<<<<<<< HEAD
         }
       },
       roamController: {
@@ -88,6 +131,29 @@
           },
           data: []
         }
+=======
+        }
+      },
+      roamController: {
+        show: true,
+        left: 'right',
+        mapTypeControl: {
+          'china': true
+        }
+      },
+      series: [
+        {
+          name: '确诊数',
+          type: 'map',
+          mapType: 'china',
+          roam: false,
+          label: {
+            show: true,
+            color: 'rgb(249, 249, 249)'
+          },
+          data: []
+        }
+>>>>>>> 221701228
       ]
     };
 
