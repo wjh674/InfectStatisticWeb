@@ -16,6 +16,7 @@
         <br/>
         <h1>全国疫情信息</h1>
         <br/>
+        <p id="time">数据更新时间：</p>
         <br/>
         <table>
             <tr>
@@ -121,6 +122,7 @@
         document.getElementById("totalConfirm").innerHTML=res.chinaTotal.confirm;
         document.getElementById("dead").innerHTML=res.chinaTotal.dead;
         document.getElementById("cure").innerHTML=res.chinaTotal.heal;
+        document.getElementById("time").innerHTML="数据更新时间："+res.lastUpdateTime;
         var newArr = [];
         if (res) {
             var province = res.areaTree[0].children;
