@@ -11,41 +11,44 @@
 </head>
 
 <body>
-
-    <h1>全国疫情信息</h1>
-    <br/>
-    <br/>
-    <table>
-        <tr>
-            <td><p class="table_title">现存确诊</p></td>
-            <td><p class="table_title">现存疑似</p></td>
-            <td><p class="table_title">现存重症</p></td>
-        </tr>
-        <tr>
-            <td><p class="table_data" id="nowConfirm">000</p></td>
-            <td><p class="table_data" id="suspect">000</p></td>
-            <td><p class="table_data" id="severe">000</p></td>
-        </tr>
-        <tr>
-            <td><p class="table_title">累计确诊</p></td>
-            <td><p class="table_title">累计死亡</p></td>
-            <td><p class="table_title">累计治愈</p></td>
-        </tr>
-        <tr>
-            <td><p class="table_data" id="totalConfirm">000</p ></td>
-            <td><p class="table_data" id="dead">000</p></td>
-            <td><p class="table_data" id="cure">000</p></td>
-        </tr>
-    </table>
-    <div class="container">
-    <div id="myEcharts"></div>
+    <div id="main">
+        <br/>
+        <br/>
+        <h1>全国疫情信息</h1>
+        <br/>
+        <br/>
+        <table>
+            <tr>
+                <td><p class="table_title">现存确诊</p></td>
+                <td><p class="table_title">现存疑似</p></td>
+                <td><p class="table_title">现存重症</p></td>
+            </tr>
+            <tr>
+                <td><p class="table_data" id="nowConfirm">000</p></td>
+                <td><p class="table_data" id="suspect">000</p></td>
+                <td><p class="table_data" id="severe">000</p></td>
+            </tr>
+            <tr>
+                <td><p class="table_title">累计确诊</p></td>
+                <td><p class="table_title">累计死亡</p></td>
+                <td><p class="table_title">累计治愈</p></td>
+            </tr>
+            <tr>
+                <td><p class="table_data" id="totalConfirm">000</p ></td>
+                <td><p class="table_data" id="dead">000</p></td>
+                <td><p class="table_data" id="cure">000</p></td>
+            </tr>
+        </table>
+        <div class="container">
+            <div id="myEcharts"></div>
+        </div>
     </div>
 
 
-  <script>
+    <script>
     var myChart = echarts.init(document.getElementById('myEcharts'));
     option = {
-      title: {
+    title: {
         text: '',
         left: 'center'
       },
