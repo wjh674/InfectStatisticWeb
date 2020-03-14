@@ -12,6 +12,7 @@
         <script src="https://www.echartsjs.com/examples/vendors/jquery/jquery.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/chart_style.css">
+        <title id="t">疫情地图展示</title>
    </head>
    <body>
     <div id="main">
@@ -35,8 +36,8 @@
         </table>
         <div id="container"></div>
     <br/>
-    <div id="backClick">
-        <a id="btlogin" href="index.html">点击返回全国地图</a>
+    <div>
+        <a href="index.html">点击返回全国地图</a>
     </div>
     <br/>
     </div>
@@ -48,15 +49,14 @@
     var app = {};
     option = null;
     option = {
-        tooltip : {
-                    trigger: 'axis'
-                },
-                legend: {
-                    x:'right',
-                    type: 'scroll',
-                    orient: 'vertical',
-                    data:['新增确诊','新增治愈','新增死亡']
-                },
+        tooltip : 
+        {
+            trigger: 'axis'
+        },
+        legend: 
+        {
+            data:['新增确诊','新增治愈','新增死亡']
+        },
         xAxis: 
         {
             type: 'category',
@@ -66,25 +66,26 @@
         {
             type: 'value'
         },
-        series: [
-                    {
-                        name:'新增确诊',
-                        type:'line',
-                        data:[],
-                        smooth: true
-                    },
-                    {
-                        name:'新增治愈',
-                        type:'line',
-                        data:[],
-                        smooth: true
-                    },
-                    {
-                        name:'新增死亡',
-                        type:'line',
-                        data:[],
-                        smooth: true
-                    }
+        series: 
+        [
+            {
+                name:'新增确诊',
+                type:'line',
+                data:[],
+                smooth: true
+            },
+            {
+                name:'新增治愈',
+                type:'line',
+                data:[],
+                smooth: true
+            },
+            {
+                name:'新增死亡',
+                type:'line',
+                data:[],
+                smooth: true
+            }
         ]
     };
 
@@ -96,6 +97,7 @@
         return searchText
     }
     document.getElementById("province").innerHTML=GetQueryString("name")+"七日疫情数据";
+    document.getElementById("t").innerHTML=GetQueryString("name")+"七日疫情数据";
 
         $.ajax({
         url: "https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province="+GetQueryString(name)+"&",
