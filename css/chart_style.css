@@ -47,19 +47,19 @@ td
     padding:0px 30px;
 }
 
-#totalConfirm
+#totalConfirm,#update_confirm
 {
     color:rgb(178,34,34);
     font-weight: bold;
 }
 
-#dead
+#dead,#update_dead
 {
     color:rgb(128,128,128);
     font-weight: bold;
 }
 
-#cure
+#cure,#update_heal
 {
     color:rgb(50,205,50);
     font-weight: bold;
@@ -75,4 +75,21 @@ td
 #time
 {
     color:rgb(169,169,169);
+}
+
+#sourse
+{
+    font-size: 12px;
+}
+
+
+#compare
+{
+    font-size: 12px;
+    font-family: 黑体;
+}
+
+.label
+{
+    padding: 0px 42px;
 }
