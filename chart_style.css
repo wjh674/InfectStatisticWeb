@@ -22,3 +22,57 @@ body
     width:750px;
     margin:0 auto;
 }
+
+table 
+{
+    margin: auto;
+    font-family: 黑体;
+}
+
+.table_title
+{
+    font-size: 20px;
+    font-family: 黑体;
+}
+
+.table_data
+{
+    font-size: 18px;
+    font-family: 黑体;
+}
+
+td
+{
+    text-align:"center";
+    padding:0px 30px;
+}
+
+#totalConfirm
+{
+    color:rgb(178,34,34);
+    font-weight: bold;
+}
+
+#dead
+{
+    color:rgb(128,128,128);
+    font-weight: bold;
+}
+
+#cure
+{
+    color:rgb(50,205,50);
+    font-weight: bold;
+}
+
+#main
+{
+    background-color:rgba(255,255,240,0.5);
+    width:750px;
+    margin:0 auto;
+}
+
+#time
+{
+    color:rgb(169,169,169);
+}
