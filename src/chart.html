@@ -13,34 +13,43 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/chart_style.css">
         <title id="t">疫情地图展示</title>
-   </head>
-   <body>
-    <div id="main">
-        <br/>
-        <br/>
-        <h2 id="province"></h2>
-        <br/>
-        <p id="time">数据更新时间：</p>
-        <br/>
-        <table>
-            <tr>
-                <td><p class="table_title">累计确诊</p></td>
-                <td><p class="table_title">累计死亡</p></td>
-                <td><p class="table_title">累计治愈</p></td>
-            </tr>
-            <tr>
-                <td><p class="table_data" id="totalConfirm">000</p ></td>
-                <td><p class="table_data" id="dead">000</p></td>
-                <td><p class="table_data" id="cure">000</p></td>
-            </tr>
-        </table>
-        <div id="container"></div>
-    <br/>
-    <div>
-        <a href="index.html">点击返回全国地图</a>
-    </div>
-    <br/>
-    </div>
+    </head>
+    <body>
+        <div id="main">
+            <br/>
+            <br/>
+            <h2 id="province"></h2>
+            <br/>
+            <p id="time">数据更新时间：</p>
+            <a id="sourse" href="" target="_blank">数据来源</a>
+            <br/>
+            <br/>
+            <table>
+                <tr>
+                    <td><p class="table_title">累计确诊</p></td>
+                    <td><p class="table_title">累计死亡</p></td>
+                    <td><p class="table_title">累计治愈</p></td>
+                </tr>
+                <tr>
+                    <td><p class="table_data" id="totalConfirm">000</p ></td>
+                    <td><p class="table_data" id="dead">000</p></td>
+                    <td><p class="table_data" id="cure">000</p></td>
+                </tr>
+            </table>
+            <p id="compare">
+                <span class="label"><span>较昨日</span><span id="update_confirm">+</span></span>
+                <span class="label"><span>较昨日</span><span id="update_dead">+</span></span>
+                <span class="label"><span>较昨日</span><span id="update_heal">+</span></span>
+            </p>
+            <br/>
+            <br/>
+            <div id="container"></div>
+            <br/>
+            <div>
+                <a href="index.html">点击返回全国地图</a>
+            </div>
+            <br/>
+        </div>
 
 
     <script type="text/javascript">
@@ -48,7 +57,8 @@
     var myChart = echarts.init(dom);
     var app = {};
     option = null;
-    option = {
+    option = 
+    {
         tooltip : 
         {
             trigger: 'axis'
@@ -99,18 +109,19 @@
     document.getElementById("province").innerHTML=GetQueryString("name")+"七日疫情数据";
     document.getElementById("t").innerHTML=GetQueryString("name")+"七日疫情数据";
 
-        $.ajax({
-        url: "https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province="+GetQueryString(name)+"&",
-        async : true,
-        dataType: "json",
-        success: function (data) 
-        {
+    $.ajax({
+    url: "https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province="+GetQueryString(name)+"&",
+    async : true,
+    dataType: "json",
+    success: function (data) 
+    {
         var res = data.data|| "";
         var date = [];
         var newConfirm=[];
         var newHeal=[];
         var newDead=[];
-        if (res) {
+        if (res) 
+        {
             for (var i = res.length-7; i < res.length; i++) 
             {
                 date.push(res[i].date);
@@ -126,25 +137,31 @@
             document.getElementById("totalConfirm").innerHTML=res[res.length-1].confirm;
             document.getElementById("dead").innerHTML=res[res.length-1].dead;
             document.getElementById("cure").innerHTML=res[res.length-1].heal;
+            document.getElementById("update_confirm").innerHTML="+"+res[res.length-1].newConfirm;
+            document.getElementById("update_dead").innerHTML="+"+res[res.length-1].newDead;
+            document.getElementById("update_heal").innerHTML="+"+res[res.length-1].newHeal;
+            var p = document.getElementById("sourse");
+            p.href="https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province="+GetQueryString(name)+"&";
         }
-        },
-        error:function()
-        {
-            alert("数据加载失败！请检查数据链接是否正确");
-        }
+    },
+    error:function()
+    {
+        alert("数据加载失败！请检查数据链接是否正确");
+    }
     }),
 
     $.ajax({
         url: "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5",
         async : true,
         dataType: "jsonp",
-        success: function (data) {
-        var res = data.data || "";
-        res = JSON.parse(res);
-        document.getElementById("time").innerHTML="数据更新时间："+res.lastUpdateTime;
+        success: function (data) 
+        {
+            var res = data.data || "";
+            res = JSON.parse(res);
+            document.getElementById("time").innerHTML="数据更新时间："+res.lastUpdateTime;
         }
-        })
+    })
 
-       </script>
-   </body>
+        </script>
+    </body>
 </html>
