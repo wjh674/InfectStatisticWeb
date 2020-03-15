@@ -1,5 +1,7 @@
 # 代码规范制定
 
+>[引用alibaba-java-style-guide部分内容](https://github.com/chjw8016/alibaba-java-style-guide)
+
 ### 缩进
 
 缩进采用4个空格
