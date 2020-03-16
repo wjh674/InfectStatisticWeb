@@ -50,118 +50,114 @@
             </div>
             <br/>
         </div>
-
-
-    <script type="text/javascript">
-    var dom = document.getElementById("container");
-    var myChart = echarts.init(dom);
-    var app = {};
-    option = null;
-    option = 
-    {
-        tooltip : 
-        {
-            trigger: 'axis'
-        },
-        legend: 
-        {
-            data:['新增确诊','新增治愈','新增死亡']
-        },
-        xAxis: 
-        {
-            type: 'category',
-            data: []
-        },
-        yAxis: 
-        {
-            type: 'value'
-        },
-        series: 
-        [
+        <script type="text/javascript">
+            var dom = document.getElementById("container");
+            var myChart = echarts.init(dom);
+            var app = {};
+            option = null;
+            option = 
             {
-                name:'新增确诊',
-                type:'line',
-                data:[],
-                smooth: true
-            },
+                tooltip : 
+                {
+                    trigger: 'axis'
+                },
+                legend: 
+                {
+                    data:['新增确诊','新增治愈','新增死亡']
+                },
+                xAxis: 
+                {
+                    type: 'category',
+                    data: []
+                },
+                yAxis: 
+                {
+                    type: 'value'
+                },
+                series: 
+                [
+                    {
+                        name:'新增确诊',
+                        type:'line',
+                        data:[],
+                        smooth: true
+                    },
+                    {
+                        name:'新增治愈',
+                        type:'line',
+                        data:[],
+                        smooth: true
+                    },
+                    {
+                        name:'新增死亡',
+                        type:'line',
+                        data:[],
+                        smooth: true
+                    }
+                ]
+            };
+            function GetQueryString(name)
             {
-                name:'新增治愈',
-                type:'line',
-                data:[],
-                smooth: true
-            },
-            {
-                name:'新增死亡',
-                type:'line',
-                data:[],
-                smooth: true
+                var searchUrl =window.location.href;
+                var searchData =searchUrl.split("=");
+                var  searchText =decodeURI(searchData[1]); 
+                return searchText
             }
-        ]
-    };
-
-    function GetQueryString(name)
-    {
-        var searchUrl =window.location.href;
-        var searchData =searchUrl.split("=");
-        var  searchText =decodeURI(searchData[1]); 
-        return searchText
-    }
-    document.getElementById("province").innerHTML=GetQueryString("name")+"七日疫情数据";
-    document.getElementById("t").innerHTML=GetQueryString("name")+"七日疫情数据";
-
-    $.ajax({
-    url: "https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province="+GetQueryString(name)+"&",
-    async : true,
-    dataType: "json",
-    success: function (data) 
-    {
-        var res = data.data|| "";
-        var date = [];
-        var newConfirm=[];
-        var newHeal=[];
-        var newDead=[];
-        if (res) 
-        {
-            for (var i = res.length-7; i < res.length; i++) 
-            {
-                date.push(res[i].date);
-                newConfirm.push(res[i].newConfirm);
-                newHeal.push(res[i].newHeal);
-                newDead.push(res[i].newDead);
-            }
-            option.xAxis.data = date;
-            option.series[0].data = newConfirm;
-            option.series[1].data = newHeal;
-            option.series[2].data = newDead;
-            myChart.setOption(option);
-            document.getElementById("totalConfirm").innerHTML=res[res.length-1].confirm;
-            document.getElementById("dead").innerHTML=res[res.length-1].dead;
-            document.getElementById("cure").innerHTML=res[res.length-1].heal;
-            document.getElementById("update_confirm").innerHTML="+"+res[res.length-1].newConfirm;
-            document.getElementById("update_dead").innerHTML="+"+res[res.length-1].newDead;
-            document.getElementById("update_heal").innerHTML="+"+res[res.length-1].newHeal;
-            var p = document.getElementById("sourse");
-            p.href="https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province="+GetQueryString(name)+"&";
-        }
-    },
-    error:function()
-    {
-        alert("数据加载失败！请检查数据链接是否正确");
-    }
-    }),
-
-    $.ajax({
-        url: "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5",
-        async : true,
-        dataType: "jsonp",
-        success: function (data) 
-        {
-            var res = data.data || "";
-            res = JSON.parse(res);
-            document.getElementById("time").innerHTML="数据更新时间："+res.lastUpdateTime;
-        }
-    })
-
+            document.getElementById("province").innerHTML=GetQueryString("name")+"七日疫情数据";
+            document.getElementById("t").innerHTML=GetQueryString("name")+"七日疫情数据";
+            $.ajax
+            ({
+                url: "https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province="+GetQueryString(name)+"&",
+                async : true,
+                dataType: "json",
+                success: function (data) 
+                {
+                    var res = data.data|| "";
+                    var date = [];
+                    var newConfirm=[];
+                    var newHeal=[];
+                    var newDead=[];
+                    if (res) 
+                    {
+                        for (var i = res.length-7; i < res.length; i++) 
+                        {
+                            date.push(res[i].date);
+                            newConfirm.push(res[i].newConfirm);
+                            newHeal.push(res[i].newHeal);
+                            newDead.push(res[i].newDead);
+                        }
+                        option.xAxis.data = date;
+                        option.series[0].data = newConfirm;
+                        option.series[1].data = newHeal;
+                        option.series[2].data = newDead;
+                        myChart.setOption(option);
+                        document.getElementById("totalConfirm").innerHTML=res[res.length-1].confirm;
+                        document.getElementById("dead").innerHTML=res[res.length-1].dead;
+                        document.getElementById("cure").innerHTML=res[res.length-1].heal;
+                        document.getElementById("update_confirm").innerHTML="+"+res[res.length-1].newConfirm;
+                        document.getElementById("update_dead").innerHTML="+"+res[res.length-1].newDead;
+                        document.getElementById("update_heal").innerHTML="+"+res[res.length-1].newHeal;
+                        var p = document.getElementById("sourse");
+                        p.href="https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province="+GetQueryString(name)+"&";
+                    }
+                },
+                error:function()
+                {
+                    alert("数据加载失败！请检查数据链接是否正确");
+                }
+            }),
+            $.ajax
+            ({
+                url: "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5",
+                async : true,
+                dataType: "jsonp",
+                success: function (data) 
+                {
+                    var res = data.data || "";
+                    res = JSON.parse(res);
+                    document.getElementById("time").innerHTML="数据更新时间："+res.lastUpdateTime;
+                }
+            })
         </script>
     </body>
 </html>

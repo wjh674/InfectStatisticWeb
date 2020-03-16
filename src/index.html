@@ -1,168 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/index_style.css">
-    <title>疫情地图展示</title>
-    <script src="https://www.echartsjs.com/examples/vendors/jquery/jquery.js"></script>
-    <script src="https://www.echartsjs.com/examples/vendors/echarts/echarts.min.js?_v_=1578305236132"></script>
-    <script src="https://www.echartsjs.com/examples/vendors/echarts/map/js/china.js?_v_=1578305236132"></script>
-</head>
-
-<body>
-    <div id="main">
-        <br/>
-        <br/>
-        <h1>全国疫情信息</h1>
-        <br/>
-        <p id="time">数据更新时间：</p>
-        <a id="sourse" href="https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5" target="_blank">数据来源</a>
-        <br/>
-        <br/>
-        <table>
-            <tr>
-                <td><p class="table_title">现存确诊</p></td>
-                <td><p class="table_title">现存疑似</p></td>
-                <td><p class="table_title">现存重症</p></td>
-            </tr>
-            <tr>
-                <td><p class="table_data" id="nowConfirm">000</p></td>
-                <td><p class="table_data" id="suspect">000</p></td>
-                <td><p class="table_data" id="severe">000</p></td>
-            </tr>
-            <tr>
-                <td><p class="table_title">累计确诊</p></td>
-                <td><p class="table_title">累计死亡</p></td>
-                <td><p class="table_title">累计治愈</p></td>
-            </tr>
-            <tr>
-                <td><p class="table_data" id="totalConfirm">000</p ></td>
-                <td><p class="table_data" id="dead">000</p></td>
-                <td><p class="table_data" id="cure">000</p></td>
-            </tr>
-        </table>
-        <div class="container">
-            <div id="myEcharts"></div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../css/index_style.css">
+        <title>疫情地图展示</title>
+        <script src="https://www.echartsjs.com/examples/vendors/jquery/jquery.js"></script>
+        <script src="https://www.echartsjs.com/examples/vendors/echarts/echarts.min.js?_v_=1578305236132"></script>
+        <script src="https://www.echartsjs.com/examples/vendors/echarts/map/js/china.js?_v_=1578305236132"></script>
+    </head>
+    <body>
+        <div id="main">
+            <br/>
+            <br/>
+            <h1>全国疫情信息</h1>
+            <br/>
+            <p id="time">数据更新时间：</p>
+            <a id="sourse" href="https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5" target="_blank">数据来源</a>
+            <br/>
+            <br/>
+            <table>
+                <tr>
+                    <td><p class="table_title">现存确诊</p></td>
+                    <td><p class="table_title">现存疑似</p></td>
+                    <td><p class="table_title">现存重症</p></td>
+                </tr>
+                <tr>
+                    <td><p class="table_data" id="nowConfirm">000</p></td>
+                    <td><p class="table_data" id="suspect">000</p></td>
+                    <td><p class="table_data" id="severe">000</p></td>
+                </tr>
+                <tr>
+                    <td><p class="table_title">累计确诊</p></td>
+                    <td><p class="table_title">累计死亡</p></td>
+                    <td><p class="table_title">累计治愈</p></td>
+                </tr>
+                <tr>
+                    <td><p class="table_data" id="totalConfirm">000</p ></td>
+                    <td><p class="table_data" id="dead">000</p></td>
+                    <td><p class="table_data" id="cure">000</p></td>
+                </tr>
+            </table>
+            <div class="container">
+                <div id="myEcharts"></div>
+            </div>
         </div>
-    </div>
-
-    <script>
-    var myChart = echarts.init(document.getElementById('myEcharts'));
-    option = {
-    title: {
-        text: '',
-        left: 'center'
-    },
-    tooltip: {
-        trigger: 'item'
-    },
-    legend: {
-        orient: 'vertical',
-        left: 'left',
-        data: ['中国疫情图']
-    },
-    visualMap: {
-        type: 'piecewise',
-        pieces: [
-        { min: 1000, max: 1000000, label: '>=1000人', color: '#372a28' },
-        { min: 500, max: 999, label: '500-999人', color: '#4e160f' },
-        { min: 100, max: 499, label: '100-499人', color: '#974236' },
-        { min: 10, max: 99, label: '10-99人', color: '#ee7263' },
-        { min: 1, max: 9, label: '1-9人', color: '#f5bba7' },
-        { min: 0, max: 0, label: '0人', color: '#ffffff' },
-        ],
-        color: ['#E0022B', '#E09107', '#A3E00B']
-    },
-    toolbox: {
-        show: true,
-        orient: 'vertical',
-        left: 'right',
-        top: 'center',
-        feature: {
-        mark: { show: true },
-        dataView: { show: true, readOnly: false },
-        restore: { show: true },
-        saveAsImage: { show: true }
-        }
-    },
-    roamController: {
-        show: true,
-        left: 'right',
-        mapTypeControl: {
-        'china': true
-        }
-    },
-    series: [
-        {
-        name: '确诊数',
-        type: 'map',
-        mapType: 'china',
-        roam: false,
-        label: {
-            show: true,
-            color: 'rgb(249, 249, 249)'
-        },
-        data: []
-        }
-    ]
-    };
-
-    myChart.setOption(option);
-
-    function getData() {
-    $.ajax({
-        url: "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5",
-        async : true,
-        dataType: "jsonp",
-        success: function (data) {
-        var res = data.data || "";
-        res = JSON.parse(res);
-        document.getElementById("nowConfirm").innerHTML=res.chinaTotal.nowConfirm;
-        document.getElementById("suspect").innerHTML=res.chinaTotal.suspect;
-        document.getElementById("severe").innerHTML=res.chinaTotal.nowSevere;
-        document.getElementById("totalConfirm").innerHTML=res.chinaTotal.confirm;
-        document.getElementById("dead").innerHTML=res.chinaTotal.dead;
-        document.getElementById("cure").innerHTML=res.chinaTotal.heal;
-        document.getElementById("time").innerHTML="数据更新时间："+res.lastUpdateTime;
-        var newArr = [];
-        if (res) {
-            var province = res.areaTree[0].children;
-            for (var i = 0; i < province.length; i++) {
-            var json = {
-                name: province[i].name,
-                value: province[i].total.confirm
-            }
-            newArr.push(json)
-            }
-            console.log(newArr)
-            console.log(JSON.stringify(newArr))
-            myChart.setOption({
-            series: [
+        <script>
+            var myChart = echarts.init(document.getElementById('myEcharts'));
+            option = 
+            {
+                title: 
                 {
-                name: '确诊数',
-                type: 'map',
-                mapType: 'china',
-                roam: false,
-                label: {
-                    show: true,
-                    color: 'rgb(249, 249, 249)'
+                    text: '',
+                    left: 'center'
                 },
-                data: newArr
-                }
-            ]
+                tooltip: 
+                {
+                    trigger: 'item'
+                },
+                legend: 
+                {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: ['中国疫情图']
+                },
+                visualMap: 
+                {
+                    type: 'piecewise',
+                    pieces: 
+                    [
+                        { 
+                            min: 1000, 
+                            max: 1000000, 
+                            label: '>=1000人', 
+                            color: '#372a28' 
+                        },
+                        { 
+                            min: 500, 
+                            max: 999, 
+                            label: '500-999人', 
+                            color: '#4e160f' 
+                        },
+                        { 
+                            min: 100, 
+                            max: 499, 
+                            label: '100-499人', 
+                            color: '#974236' 
+                        },
+                        { 
+                            min: 10, 
+                            max: 99, 
+                            label: '10-99人', 
+                            color: '#ee7263' 
+                        },
+                        {
+                            min: 1,
+                            max: 9, 
+                            label: '1-9人', 
+                            color: '#f5bba7' 
+                        },
+                        { 
+                            min: 0, 
+                            max: 0, 
+                            label: '0人', 
+                            color: '#ffffff' 
+                        },
+                    ],
+                    color: ['#E0022B', '#E09107', '#A3E00B']
+                },
+                toolbox: 
+                {
+                    show: true,
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'center',
+                    feature: 
+                    {
+                        mark: { show: true },
+                        dataView: { show: true, readOnly: false },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    }
+                },
+                roamController: 
+                {
+                    show: true,
+                    left: 'right',
+                    mapTypeControl: 
+                    {
+                        'china': true
+                    }
+                },
+                series: 
+                [
+                    {
+                        name: '确诊数',
+                        type: 'map',
+                        mapType: 'china',
+                        roam: false,
+                        label: 
+                        {
+                            show: true,
+                            color: 'rgb(249, 249, 249)'
+                        },
+                        data: []
+                        }
+                ]
+            };
+            myChart.setOption(option);
+            function getData() 
+            {
+                $.ajax
+                ({
+                    url: "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5",
+                    async : true,
+                    dataType: "jsonp",
+                    success: function (data) 
+                    {
+                        var res = data.data || "";
+                        res = JSON.parse(res);
+                        document.getElementById("nowConfirm").innerHTML=res.chinaTotal.nowConfirm;
+                        document.getElementById("suspect").innerHTML=res.chinaTotal.suspect;
+                        document.getElementById("severe").innerHTML=res.chinaTotal.nowSevere;
+                        document.getElementById("totalConfirm").innerHTML=res.chinaTotal.confirm;
+                        document.getElementById("dead").innerHTML=res.chinaTotal.dead;
+                        document.getElementById("cure").innerHTML=res.chinaTotal.heal;
+                        document.getElementById("time").innerHTML="数据更新时间："+res.lastUpdateTime;
+                        var newArr = [];
+                        if (res) 
+                        {
+                            var province = res.areaTree[0].children;
+                            for (var i = 0; i < province.length; i++) 
+                            {
+                                var json = 
+                                {
+                                    name: province[i].name,
+                                    value: province[i].total.confirm
+                                }
+                                newArr.push(json)
+                            }
+                            console.log(newArr)
+                            console.log(JSON.stringify(newArr))
+                            myChart.setOption
+                            ({
+                                series: 
+                                [
+                                    {
+                                        name: '确诊数',
+                                        type: 'map',
+                                        mapType: 'china',
+                                        roam: false,
+                                        label: 
+                                        {
+                                            show: true,
+                                            color: 'rgb(249, 249, 249)'
+                                        },
+                                        data: newArr
+                                    }
+                                ]
+                            });
+                        }
+                    }
+                })
+            }
+            myChart.on('click',function(params)
+            {
+                console.log(params);
+                var name=params.name;
+                window.location.href="chart.html?name="+params.name;
             });
-        }
-        }
-    })
-    }
-    myChart.on('click',function(params)
-    {
-    console.log(params);
-    var name=params.name;
-    window.location.href="chart.html?name="+params.name;
-    });
-    getData();
+            getData();
         </script>
     </body>
 </html>
